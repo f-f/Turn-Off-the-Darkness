@@ -1,8 +1,13 @@
-import pygame, random, math, numpy
-from pygame.locals import *
+from imports import *
 
-class Game:
+from player import *
+
+class Game(pygame.sprite.Sprite):
 	def __init__(self):
+		# se funziona si tiene
+		pygame.sprite.Sprite.__init__(self)
+		#
+		
 		self.quit = False
 		
 		pygame.init()
@@ -15,17 +20,18 @@ class Game:
 		#pygame.mouse.set_visible(False)
 		#pygame.event.set_grab(True)
 		
-		self.screen = pygame.display.set_mode(
+		self.image = pygame.display.set_mode(
 			(800,600),DOUBLEBUF
 			#(1366,768),DOUBLEBUF|FULLSCREEN|HWSURFACE
 		)
+		self.rect = self.image.get_rect()
 		pygame.display.set_caption('GGJ')
 		
 		self.background = pygame.sprite.Group()
 		self.foreground = pygame.sprite.Group()
 		
-		#self.player = Player(self)
-		#self.foreground.add(self.player)
+		self.player = Player(self)
+		self.foreground.add(self.player)
 	
 	def run(self):
 		while not self.quit:
@@ -51,8 +57,8 @@ class Game:
 		self.foreground.update()
 		
 	def draw(self):
-		self.background.draw(self.screen)
-		self.foreground.draw(self.screen)
+		self.background.draw(self.image)
+		self.foreground.draw(self.image)
 		
 		pygame.display.update()
 		#pygame.display.flip()
