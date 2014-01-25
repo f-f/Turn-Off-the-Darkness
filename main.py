@@ -3,6 +3,8 @@ from imports import *
 from player import *
 from wall import *
 from sounds import *
+from light import *
+from radar import *
 
 from background import *
 
@@ -26,6 +28,7 @@ class Game(pygame.sprite.Sprite):
 		self.countActionPerBpm = 0
 		self.pastActionsPerBpm = 0
 		self.death = False
+		self.lives = 3
 		
 		# se usati insieme permettono di muovere il mouse infinitamente
 		# ma bloccano la tastiera "all'esterno"
@@ -49,14 +52,23 @@ class Game(pygame.sprite.Sprite):
 		self.rect = self.image.get_rect()
 		pygame.display.set_caption('GGJ')
 		
+		self.effects = pygame.sprite.Group()
 		self.foreground = pygame.sprite.Group()
+		
+		self.background = Background(self)
+		
 		
 		self.player = Player(self)
 		self.foreground.add(self.player)
 		
 		self.walls = Walls(self)
 		
-		self.background = Background(self)
+		self.light = Light(self)
+		self.effects.add(self.light)
+		
+		self.radar = Radar(self)
+		self.effects.add(self.radar)
+		
 		
 		#self.test_wall = Wall(self)
 		#self.foreground.add(self.test_wall)
@@ -114,19 +126,34 @@ class Game(pygame.sprite.Sprite):
 		self.sounds.update()
 		#self.background.update()
 		self.walls.update()
+		self.effects.update()
 		self.foreground.update()
 
 		if self.beat:
 			self.lightAction = False
 			self.soundAction = False
 		
+		if self.death:
+			self.lives -= 1
+			
+			self.reset()
+			
+			print self.lives
+			if self.lives<1:
+				self.quit = True
+		
 		self.beat = False
+		self.death = False
+	
+	def reset(self):
+		self.walls.empty()
 		
 	def draw(self):
 		self.image.fill(0)
 		
 		self.image.blit( self.background.image, (0,0) )
 		self.walls.draw(self.image)
+		self.effects.draw(self.image)
 		self.foreground.draw(self.image)
 		
 		
