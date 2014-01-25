@@ -11,12 +11,12 @@ class Walls(pygame.sprite.Group):
 		if self.game.beat:
 			self.beat_counter += 1
 		
-		if self.beat_counter > 2:
+		if self.beat_counter > 1:
 			self.add(Wall(
 				self.game,
 				random.randint(10,30),
-				#random.uniform(-math.pi,0)
-				random.uniform(-math.pi/2 - math.pi/6, -math.pi/2 + math.pi/6)
+				random.uniform(-math.pi,0)
+				#random.uniform(-math.pi/2 - math.pi/6, -math.pi/2 + math.pi/6)
 				))
 			self.beat_counter = 0
 		
@@ -30,30 +30,34 @@ class Wall(pygame.sprite.Sprite):
 		self.game = game
 		
 		self.n = n
-		self.angle = angle  # angolo centrale della prima tile
 		
 		self.radius = WALL_INNER_RADIUS
 		self.outer_radius = self.radius + UNIT
 		self.step = 2*math.asin(float(UNIT)/(2*self.outer_radius))  # angle between tiles
+		
+		self.angle = angle# + self.n*self.step/2  # angolo centrale
 		
 		self.image = pygame.Surface(
 			(self.outer_radius*2,
 			self.outer_radius*2)
 		).convert_alpha()
 		self.rect = self.image.get_rect()
-		self.rect.center = (self.game.rect.centerx, 0)
+		self.rect.center = (self.game.rect.centerx, self.game.rect.w/2)
 		
 		self.tiles = pygame.sprite.Group()
 		
 		for i in xrange(0,self.n):
-			self.tiles.add(Tile(
+			tile = Tile(
 					game, self, self.angle + i*self.step
-				))
+				)
+			self.tiles.add(tile)
+		
 	
 	def set_angle(self, angle):
 		delta = angle - self.angle
 		for tile in self.tiles:
 			tile.angle += delta
+		
 		self.angle = angle
 	
 	def update(self):
@@ -69,6 +73,9 @@ class Wall(pygame.sprite.Sprite):
 		self.tiles.draw(self.image)
 		
 		if self.rect.top > self.game.rect.w:
+			for t in self.tiles:
+				t.kill()
+				del t
 			self.kill()
 			del self
 		
@@ -84,6 +91,7 @@ class Tile(pygame.sprite.Sprite):
 		#self.image_start.fill((0,255,255))
 		self.image_start = pygame.image.load('img/test_tile01.png').convert_alpha()
 		#
+		self.update()
 		
 	def update(self):
 		self.image = pygame.transform.rotate(self.image_start, -180.0*self.angle/math.pi+90)
@@ -98,4 +106,8 @@ class Tile(pygame.sprite.Sprite):
 			self.wall.rect.w/2 + r*math.cos(self.angle),
 			self.wall.rect.h/2 + r*math.sin(self.angle)
 		)
+		
+		if self.rect.top > self.game.rect.w:
+			self.kill()
+			del self
 		
