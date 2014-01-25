@@ -38,3 +38,6 @@ class Player(pygame.sprite.Sprite):
 			self.index = (self.index+1)%len(self.images)
 			
 			self.image = self.images[self.index]
+		
+		
+	

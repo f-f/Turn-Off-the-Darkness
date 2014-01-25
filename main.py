@@ -98,7 +98,7 @@ class Game(pygame.sprite.Sprite):
 	
 	def update(self):
 		self.sounds.update()
-		self.background.update()
+		#self.background.update()
 		self.walls.update()
 		self.foreground.update()
 
