@@ -14,13 +14,14 @@ class Walls(pygame.sprite.Group):
 		if self.beat_counter >= 4:
 			self.add(Wall(
 				self.game,
-				random.randint(1,10),
-				random.uniform(-math.pi,0)
+				random.randint(10,30),
+				#random.uniform(-math.pi,0)
+				random.uniform(-math.pi/2 - math.pi/6, -math.pi/2 + math.pi/6)
 				))
 			self.beat_counter = 0
 		
-		for w in self:
-			w.rect.y += self.game.tick*self.game.speed
+		#for w in self:
+		#	w.rect.y += self.game.tick*self.game.speed
 		pygame.sprite.Group.update(self)
 
 class Wall(pygame.sprite.Sprite):
@@ -62,8 +63,11 @@ class Wall(pygame.sprite.Sprite):
 			self.set_angle(self.angle + 5*self.game.tick*self.game.speed*self.step/UNIT)
 		self.tiles.update()
 		
+		self.rect.y += self.game.tick*self.game.speed
+		
 		self.image.fill(0)
 		self.tiles.draw(self.image)
+		
 		
 class Tile(pygame.sprite.Sprite):
 	def __init__(self, game, wall, angle):
