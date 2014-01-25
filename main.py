@@ -3,8 +3,7 @@ from imports import *
 from player import *
 from wall import *
 from sounds import *
-from light import *
-from radar import *
+from effects import *
 
 from background import *
 
@@ -29,6 +28,8 @@ class Game(pygame.sprite.Sprite):
 		self.pastActionsPerBpm = 0
 		self.death = False
 		self.lives = 3
+		self.lightTimer = 0
+		self.soundTimer = 0
 		
 		# se usati insieme permettono di muovere il mouse infinitamente
 		# ma bloccano la tastiera "all'esterno"
@@ -66,6 +67,9 @@ class Game(pygame.sprite.Sprite):
 		self.light = Light(self)
 		self.effects.add(self.light)
 		
+		self.black = Black(self)
+		self.effects.add(self.black)
+
 		self.radar = Radar(self)
 		self.effects.add(self.radar)
 		
@@ -121,10 +125,17 @@ class Game(pygame.sprite.Sprite):
 			elif self.countActionPerBpm < 1 and self.pastActionsPerBpm < 1 and self.frenzy > 1:
 				self.frenzy -= 1
 
+			#events: light&sound
+			if self.lightAction:
+				self.lightTimer = 2 #parameters
+			if self.soundAction:
+				self.soundTimer = 4 
+				
+
 			self.countActionPerBpm = 0
 
 		self.sounds.update()
-		#self.background.update()
+		self.background.update()
 		self.walls.update()
 		self.effects.update()
 		self.foreground.update()
@@ -132,15 +143,19 @@ class Game(pygame.sprite.Sprite):
 		if self.beat:
 			self.lightAction = False
 			self.soundAction = False
-		
+			if self.lightTimer > 0:
+				self.lightTimer -= 1
+			if self.soundTimer > 0:  
+				self.soundTimer -= 1
+
 		if self.death:
 			self.lives -= 1
 			
 			self.reset()
 			
 			print self.lives
-			if self.lives<1:
-				self.quit = True
+			#if self.lives<1:
+				#self.quit = True
 		
 		self.beat = False
 		self.death = False
