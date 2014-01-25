@@ -2,6 +2,7 @@ from imports import *
 
 from player import *
 from wall import *
+from sounds import *
 
 from background import *
 
@@ -19,6 +20,7 @@ class Game(pygame.sprite.Sprite):
 		self.max_fps = 120
 		self.tick = 0
 		self.speed = 4*UNIT  # per second
+		self.frenzy = 1
 		
 		# se usati insieme permettono di muovere il mouse infinitamente
 		# ma bloccano la tastiera "all'esterno"
@@ -28,7 +30,7 @@ class Game(pygame.sprite.Sprite):
 		# game.state_varible
 		pygame.time.set_timer(USEREVENT, int(60*1000/BPM))
 		self.beat = False
-		#self.sounds = Sounds(self)
+		self.sounds = Sounds(self)
 		
 		self.left = False
 		self.right = False
@@ -87,7 +89,7 @@ class Game(pygame.sprite.Sprite):
 		self.mouse_rel = pygame.mouse.get_rel()
 	
 	def update(self):
-		#self.sounds.update()
+		self.sounds.update()
 		
 		self.background.update()
 		self.foreground.update()
