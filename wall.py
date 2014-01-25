@@ -35,8 +35,18 @@ class Wall(pygame.sprite.Sprite):
 		#for tile in self.tiles:
 		#	self.image.blit(tile.image, (0,0))
 		#
-
+	
+	def set_angle(self, angle):
+		delta = angle - self.angle
+		for tile in self.tiles:
+			tile.angle += delta
+		self.angle = angle
+	
 	def update(self):
+		if self.game.left:
+			self.set_angle(self.angle + 5*self.game.tick*self.game.speed*self.step/UNIT)
+		if self.game.right:
+			self.set_angle(self.angle - 5*self.game.tick*self.game.speed*self.step/UNIT)
 		self.tiles.update()
 		
 		self.image.fill(0)
