@@ -97,8 +97,9 @@ class Tile(pygame.sprite.Sprite):
 		#self.image_start.fill((0,255,255))
 		self.image_start = pygame.image.load('img/test_tile01.png').convert_alpha()
 		#
-		self.update()
 		
+		self.update()
+
 	def update(self):
 		self.image = pygame.transform.rotate(self.image_start, -180.0*self.angle/math.pi+90)
 		#self.image = self.image_start
@@ -116,4 +117,4 @@ class Tile(pygame.sprite.Sprite):
 		if self.rect.top > self.game.rect.w:
 			self.kill()
 			del self
-		
+
