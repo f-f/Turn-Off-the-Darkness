@@ -2,6 +2,8 @@ from imports import *
 
 from player import *
 
+from background import *
+
 class Game(pygame.sprite.Sprite):
 	def __init__(self):
 		# se funziona si tiene
@@ -27,11 +29,12 @@ class Game(pygame.sprite.Sprite):
 		self.rect = self.image.get_rect()
 		pygame.display.set_caption('GGJ')
 		
-		self.background = pygame.sprite.Group()
 		self.foreground = pygame.sprite.Group()
 		
 		self.player = Player(self)
 		self.foreground.add(self.player)
+
+		self.background = Background(self)
 	
 	def run(self):
 		while not self.quit:
@@ -60,7 +63,7 @@ class Game(pygame.sprite.Sprite):
 	def draw(self):
 		self.image.fill(0)
 		
-		self.background.draw(self.image)
+		self.image.blit( self.background.image, (0,0) )
 		self.foreground.draw(self.image)
 		
 		
