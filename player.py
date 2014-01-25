@@ -39,5 +39,17 @@ class Player(pygame.sprite.Sprite):
 			
 			self.image = self.images[self.index]
 		
-		
+		for w in self.game.walls:
+			d = math.hypot(
+					self.rect.centerx - w.rect.centerx,
+					self.rect.centery - w.rect.centery
+				)
+			if w.radius-d<UNIT and d-w.outer_radius<UNIT:
+				if (
+					(w.angle-w.step/2 < (-math.pi/2))
+					and
+					(w.angle+w.step/2+w.n*w.step > (-math.pi/2))
+				):
+					self.game.death = True
+					#exit(1)
 	

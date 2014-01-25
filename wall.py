@@ -16,7 +16,7 @@ class Walls(pygame.sprite.Group):
 				self.game,
 				random.randint(10,30),
 				#random.uniform(-math.pi,0)
-				random.uniform(-math.pi,+math.pi)
+				random.uniform(-math.pi,+math.pi)  # migliore finora
 				#random.uniform(-math.pi/2 - math.pi/6, -math.pi/2 + math.pi/6)
 				))
 			self.beat_counter = 0
