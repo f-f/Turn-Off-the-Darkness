@@ -5,7 +5,7 @@ class Player(pygame.sprite.Sprite):
 		pygame.sprite.Sprite.__init__(self)
 		self.game = game
 		
-		self.image = pygame.Surface((UNIT,UNIT)).convert_alpha()
+		self.image = pygame.Surface((UNIT,2*UNIT)).convert_alpha()
 		self.rect = self.image.get_rect()
 		
 		self.rect.centerx = int(self.game.rect.w*PLAYER_REL_POS[0])
