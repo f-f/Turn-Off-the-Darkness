@@ -124,7 +124,7 @@ class Game(pygame.sprite.Sprite):
 			self.countActionPerBpm = 0
 
 		self.sounds.update()
-		self.background.update()
+		#self.background.update()
 		self.walls.update()
 		self.effects.update()
 		self.foreground.update()
@@ -138,9 +138,9 @@ class Game(pygame.sprite.Sprite):
 			
 			self.reset()
 			
-			#print self.lives
-			#if self.lives<1:
-			#	self.quit = True
+			print self.lives
+			if self.lives<1:
+				self.quit = True
 		
 		self.beat = False
 		self.death = False

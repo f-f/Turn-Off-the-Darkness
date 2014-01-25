@@ -50,6 +50,7 @@ class Background(pygame.sprite.Sprite):
 			self.offset = 0
 			del self.rows[-1]
 			self.rows.insert(0, self.new_row())
+			
 		for i in xrange(len(self.rows)):
 			self.image.blit(self.rows[i], (0, i * self.side + self.offset))
 

@@ -46,10 +46,19 @@ class Player(pygame.sprite.Sprite):
 				)
 			if w.radius-d<UNIT and d-w.outer_radius<UNIT:
 				if (
-					(w.angle-w.step/2 < (-math.pi/2))
-					and
-					(w.angle+w.step/2+w.n*w.step > (-math.pi/2))
-				):
+						#math.fmod(w.angle-w.step/2,2*math.pi)-math.pi < (-math.pi/2)
+						#and
+						#math.fmod(w.angle+w.step/2+w.n*w.step,2*math.pi)-math.pi > (-math.pi/2)
+						w.angle-w.step/2 < (3*math.pi/2)
+						and
+						w.angle+w.step/2+w.n*w.step > (3*math.pi/2)
+					):
 					self.game.death = True
+					print "morto?"
 					#exit(1)
-	
+			
+			#
+			#	self.game.death = True
+			#	print "distanza"
+			#	exit(1)	
+				
