@@ -25,6 +25,12 @@ class Game(pygame.sprite.Sprite):
 		#pygame.mouse.set_visible(False)
 		#pygame.event.set_grab(True)
 		
+		pygame.time.set_timer(USEREVENT, int(60*1000/BPM))
+		self.beat = False
+		#self.sounds = Sounds(self)
+		
+		
+		
 		self.image = pygame.display.set_mode(
 			(800,600),DOUBLEBUF
 			#(1366,768),DOUBLEBUF|FULLSCREEN|HWSURFACE
@@ -42,6 +48,7 @@ class Game(pygame.sprite.Sprite):
 		self.test_wall = Wall(self)
 		self.foreground.add(self.test_wall)
 		
+		
 	def run(self):
 		while not self.quit:
 			self.events()
@@ -58,13 +65,21 @@ class Game(pygame.sprite.Sprite):
 				if event.key == K_ESCAPE:
 					self.quit = True
 			
+			if event.type==USEREVENT:
+				self.beat = True
+			
 		
 		self.mouse_rel = pygame.mouse.get_rel()
 	
 	def update(self):
+		#self.sounds.update()
+		if self.beat:
+			print "beat"
+		
 		self.background.update()
 		self.foreground.update()
 		
+		self.beat = False
 		
 	def draw(self):
 		self.image.fill(0)
