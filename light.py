@@ -16,6 +16,6 @@ class Light(pygame.sprite.Sprite):
 		
 	
 	def update(self):
-		self.image = self.image_loaded
+		#self.image = self.image_loaded
 		None
 		

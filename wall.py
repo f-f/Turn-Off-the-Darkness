@@ -16,7 +16,17 @@ class Walls(pygame.sprite.Group):
 		if self.beat_counter >= 2:
 			self.beat_counter = 0
 			#angle = random.uniform(-math.pi,+math.pi)  # migliore finora
+			
 			angle = self.last_angle + random.uniform(-math.pi/4,+math.pi/4)
+			w = Wall(
+					self.game,
+					random.randint(30,50),
+					angle
+				)
+			self.last_angle += w.n*w.step
+			self.add(w)
+			
+			angle = self.last_angle + random.uniform(math.pi/4,+math.pi/2)
 			w = Wall(
 					self.game,
 					random.randint(30,50),
