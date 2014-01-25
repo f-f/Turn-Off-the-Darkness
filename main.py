@@ -56,9 +56,28 @@ class Game(pygame.sprite.Sprite):
 		self.background.update()
 		self.foreground.update()
 		
+		
 	def draw(self):
+		self.image.fill(0)
+		
 		self.background.draw(self.image)
 		self.foreground.draw(self.image)
+		
+		
+		fps = pygame.font.SysFont(
+				"monospace", 24
+			).render(
+				str(int(self.clock.get_fps()))+"fps",
+				True, (100,100,100)
+			)
+		
+		self.image.blit(
+			fps,
+			(
+				self.rect.w-fps.get_width(),
+				self.rect.h-fps.get_height()
+			)
+		)
 		
 		pygame.display.update()
 		#pygame.display.flip()
