@@ -14,6 +14,7 @@ class Background(pygame.sprite.Sprite):
 			self.rows.append(self.new_row())
 
 	def new_row(self):
+
 		self.row = pygame.Surface((self.game.rect.w, self.side)).convert_alpha()
 		self.position = -self.side/2
 

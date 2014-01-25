@@ -23,6 +23,9 @@ class Game(pygame.sprite.Sprite):
 		self.frenzy = 1
 		self.soundAction = False
 		self.lightAction = False
+		self.countActionPerBpm = 0
+		self.pastActionsPerBpm = 0
+		self.death = False
 		
 		# se usati insieme permettono di muovere il mouse infinitamente
 		# ma bloccano la tastiera "all'esterno"
@@ -80,8 +83,10 @@ class Game(pygame.sprite.Sprite):
 					self.right = True
 				if event.key == K_z:
 					self.soundAction = True
+					self.countActionPerBpm += 1
 				if event.key == K_x:
 					self.lightAction = True
+					self.countActionPerBpm += 1
 				
 				
 			elif event.type == KEYUP:
@@ -97,8 +102,17 @@ class Game(pygame.sprite.Sprite):
 		self.mouse_rel = pygame.mouse.get_rel()
 	
 	def update(self):
+		if self.beat:
+			self.pastActionsPerBpm = self.countActionPerBpm
+			if self.countActionPerBpm > 2 and self.frenzy < 10:
+				self.frenzy += 1
+			elif self.countActionPerBpm < 1 and self.pastActionsPerBpm < 1 and self.frenzy > 1:
+				self.frenzy -= 1
+
+			self.countActionPerBpm = 0
+
 		self.sounds.update()
-		self.background.update()
+		#self.background.update()
 		self.walls.update()
 		self.foreground.update()
 
