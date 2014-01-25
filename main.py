@@ -108,7 +108,6 @@ class Game(pygame.sprite.Sprite):
 				self.frenzy += 1
 			elif self.countActionPerBpm < 1 and self.pastActionsPerBpm < 1 and self.frenzy > 1:
 				self.frenzy -= 1
-			print self.frenzy, self.countActionPerBpm
 
 			self.countActionPerBpm = 0
 
