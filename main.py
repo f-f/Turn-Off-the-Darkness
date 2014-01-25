@@ -73,8 +73,6 @@ class Game(pygame.sprite.Sprite):
 	
 	def update(self):
 		#self.sounds.update()
-		if self.beat:
-			print "beat"
 		
 		self.background.update()
 		self.foreground.update()
