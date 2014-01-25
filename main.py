@@ -1,6 +1,7 @@
 from imports import *
 
 from player import *
+from wall import *
 
 from background import *
 
@@ -19,12 +20,13 @@ class Game(pygame.sprite.Sprite):
 		self.tick = 0
 		
 		# se usati insieme permettono di muovere il mouse infinitamente
+		# ma bloccano la tastiera "all'esterno"
 		#pygame.mouse.set_visible(False)
 		#pygame.event.set_grab(True)
 		
 		self.image = pygame.display.set_mode(
-			#(800,600),DOUBLEBUF
-			(1366,768),DOUBLEBUF|FULLSCREEN|HWSURFACE
+			(800,600),DOUBLEBUF
+			#(1366,768),DOUBLEBUF|FULLSCREEN|HWSURFACE
 		)
 		self.rect = self.image.get_rect()
 		pygame.display.set_caption('GGJ')
@@ -33,8 +35,15 @@ class Game(pygame.sprite.Sprite):
 		
 		self.player = Player(self)
 		self.foreground.add(self.player)
+<<<<<<< HEAD
 
 		self.background = Background(self)
+=======
+		
+		self.test_wall = Wall(self)
+		self.foreground.add(self.test_wall)
+		
+>>>>>>> fc806094efa98b16f6b4dfcbfdc80148b9391cb8
 	
 	def run(self):
 		while not self.quit:
