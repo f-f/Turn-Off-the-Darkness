@@ -71,7 +71,7 @@ class Background(pygame.sprite.Sprite):
 		return row
 
 	def update(self):
-		self.offset += self.game.tick * self.game.speed
+		self.offset += self.game.tick * self.game.speed/4
 		if (self.offset > self.side):
 			self.offset = 0
 			del self.rows[-1]
