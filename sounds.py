@@ -52,6 +52,7 @@ class Sounds:
 	def update(self):
 		if self.game.death:
 			self.death.play()
+			self.diapason.set_volume(1.0)
 			self.game.death = False
 
 		if self.game.beat: 
