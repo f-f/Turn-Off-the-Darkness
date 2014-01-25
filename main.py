@@ -112,7 +112,7 @@ class Game(pygame.sprite.Sprite):
 			self.countActionPerBpm = 0
 
 		self.sounds.update()
-		#self.background.update()
+		self.background.update()
 		self.walls.update()
 		self.foreground.update()
 

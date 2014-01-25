@@ -35,7 +35,7 @@ class Background(pygame.sprite.Sprite):
 		return self.row
 
 	def load(self, folder, tipo, sufx):
-		return pygame.image.load("img/%s/%s" % (folder, tipo) + "_" + "%s" % (sufx + 1) + ".png").convert()
+		return pygame.image.load("img/%s/%s_%s.png" % (folder, tipo, sufx + 1)).convert()
 
 	def returntile(self):
 		if (random.randint(0,1) == 0):
