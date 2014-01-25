@@ -46,11 +46,13 @@ class Game(pygame.sprite.Sprite):
 		
 		self.player = Player(self)
 		self.foreground.add(self.player)
-
+		
+		self.walls = Walls(self)
+		
 		self.background = Background(self)
 		
-		self.test_wall = Wall(self)
-		self.foreground.add(self.test_wall)
+		#self.test_wall = Wall(self)
+		#self.foreground.add(self.test_wall)
 		
 		
 	def run(self):
@@ -90,6 +92,7 @@ class Game(pygame.sprite.Sprite):
 		#self.sounds.update()
 		
 		self.background.update()
+		self.walls.update()
 		self.foreground.update()
 		
 		self.beat = False
@@ -98,6 +101,7 @@ class Game(pygame.sprite.Sprite):
 		self.image.fill(0)
 		
 		self.image.blit( self.background.image, (0,0) )
+		self.walls.draw(self.image)
 		self.foreground.draw(self.image)
 		
 		

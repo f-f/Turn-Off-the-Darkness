@@ -1,9 +1,24 @@
 from imports import *
 
-class Wall(pygame.sprite.Sprite):
+class Walls(pygame.sprite.Group):
 	def __init__(self, game):
+		pygame.sprite.Group.__init__(self)
+		self.game = game
+		
+		self.add(Wall(self.game, 40, math.pi*2/3))
+	
+	def update(self):
+		for w in self:
+			w.rect.y += self.game.tick*self.game.speed
+		pygame.sprite.Group.update(self)
+
+class Wall(pygame.sprite.Sprite):
+	def __init__(self, game, n, angle):
 		pygame.sprite.Sprite.__init__(self)
 		self.game = game
+		
+		self.n = n
+		self.angle = angle  # angolo centrale della prima tile
 		
 		self.radius = WALL_INNER_RADIUS
 		self.outer_radius = self.radius + UNIT
@@ -17,11 +32,6 @@ class Wall(pygame.sprite.Sprite):
 		self.rect.center = (self.game.rect.centerx,self.game.rect.h)
 		
 		self.tiles = pygame.sprite.Group()
-		
-		# variabili generate
-		self.n = 40
-		self.angle = 2*math.pi/3  # angolo centrale della prima tile
-		#
 		
 		for i in xrange(0,self.n):
 			self.tiles.add(Tile(
@@ -44,9 +54,9 @@ class Wall(pygame.sprite.Sprite):
 	
 	def update(self):
 		if self.game.left:
-			self.set_angle(self.angle + 5*self.game.tick*self.game.speed*self.step/UNIT)
-		if self.game.right:
 			self.set_angle(self.angle - 5*self.game.tick*self.game.speed*self.step/UNIT)
+		if self.game.right:
+			self.set_angle(self.angle + 5*self.game.tick*self.game.speed*self.step/UNIT)
 		self.tiles.update()
 		
 		self.image.fill(0)
