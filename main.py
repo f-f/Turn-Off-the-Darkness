@@ -24,6 +24,7 @@ class Game(pygame.sprite.Sprite):
 		self.soundAction = False
 		self.lightAction = False
 		self.countActionPerBpm = 0
+		self.pastActionsPerBpm = 0
 		self.death = False
 		self.lives = 3
 		
@@ -102,6 +103,15 @@ class Game(pygame.sprite.Sprite):
 		self.mouse_rel = pygame.mouse.get_rel()
 	
 	def update(self):
+		if self.beat:
+			self.pastActionsPerBpm = self.countActionPerBpm
+			if self.countActionPerBpm > 2 and self.frenzy < 10:
+				self.frenzy += 1
+			elif self.countActionPerBpm < 1 and self.pastActionsPerBpm < 1 and self.frenzy > 1:
+				self.frenzy -= 1
+
+			self.countActionPerBpm = 0
+
 		self.sounds.update()
 		#self.background.update()
 		self.walls.update()
@@ -110,14 +120,6 @@ class Game(pygame.sprite.Sprite):
 		if self.beat:
 			self.lightAction = False
 			self.soundAction = False
-			if self.countActionPerBpm > 2 and self.frenzy < 10:
-				self.frenzy += 1
-			elif self.countActionPerBpm < 1 and self.frenzy > 1:
-				self.frenzy -= 1
-			print self.frenzy
-
-			print self.countActionPerBpm
-			self.countActionPerBpm = 0
 		
 		if self.death:
 			self.lives -= 1

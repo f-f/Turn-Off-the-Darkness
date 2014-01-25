@@ -52,7 +52,7 @@ class Sounds:
 	def update(self):
 		if self.game.death:
 			self.death.play()
-			# please don't kill the death
+			self.diapason.set_volume(1.0)
 
 		if self.game.beat: 
 			self.counter +=1 #add a beat
