@@ -23,8 +23,8 @@ class Player(pygame.sprite.Sprite):
 		
 		self.rect = self.image.get_rect()
 		
-		self.rect.centerx = int(self.game.rect.w*PLAYER_REL_POS[0])
-		self.rect.centery = int(self.game.rect.h*PLAYER_REL_POS[1])
+		self.rect.centerx = int(self.game.rect.w/2)
+		self.rect.bottom = int(self.game.rect.h)
 		
 		self.wait = 0.0
 		self.fps = 15.0

@@ -88,7 +88,7 @@ class Wall(pygame.sprite.Sprite):
 		self.image.fill(0)
 		self.tiles.draw(self.image)
 		
-		if self.rect.top > self.game.rect.w:
+		if self.rect.top > self.game.rect.w-2*UNIT:
 			for t in self.tiles:
 				t.kill()
 				del t
