@@ -19,6 +19,8 @@ class Sounds:
 		self.diapason = pygame.mixer.Sound("audio/Diapason.ogg")
 		self.step = pygame.mixer.Sound("audio/Step.ogg")
 
+		self.death = pygame.mixer.Sound("audio/Step.ogg")
+
 		pygame.mixer.init(44100,-16,2, 1024) #initialize mixer
 
 		#self.channel = {}
@@ -48,6 +50,10 @@ class Sounds:
 
 
 	def update(self):
+		if self.game.death:
+			self.death.play()
+			self.game.death = False
+
 		if self.game.beat: 
 			self.counter +=1 #add a beat
 

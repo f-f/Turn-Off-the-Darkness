@@ -56,13 +56,14 @@ class Background(pygame.sprite.Sprite):
 		row = pygame.Surface((self.game.rect.w, self.side)).convert_alpha()
 		# row.fill((0, 0, 255))
 		position = -self.side/2
+		frenzy = self.game.frenzy
 		for i in xrange(0, self.game.rect.w/self.side + 1):
-			if (self.game.frenzy <= F_CALM):
+			if (frenzy <= F_CALM):
 				random_index = random.randint(0, NUM_TILES_FOGNA - 1)
-			elif (self.game.frenzy <= F_TRANS2):
+			elif (frenzy <= F_TRANS2):
 				random_index = random.randint(NUM_TILES_FOGNA, NUM_TILES_TOT - NUM_TILES_INFERNO - 1)
 			else:
-				random_index = random.randint(NUM_TILES_DUNGEON, NUM_TILES_INFERNO - 1)
+				random_index = random.randint(NUM_TILES_FOGNA + NUM_TILES_DUNGEON, NUM_TILES_TOT - 1)
 			row.blit(self.tiles[random_index], (position, 0))
 			position += self.tiles[random_index].get_rect().w
 
