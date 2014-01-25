@@ -11,7 +11,7 @@ class Walls(pygame.sprite.Group):
 		if self.game.beat:
 			self.beat_counter += 1
 		
-		if self.beat_counter >= 4:
+		if self.beat_counter > 2:
 			self.add(Wall(
 				self.game,
 				random.randint(10,30),
@@ -68,6 +68,9 @@ class Wall(pygame.sprite.Sprite):
 		self.image.fill(0)
 		self.tiles.draw(self.image)
 		
+		if self.rect.top > self.game.rect.w:
+			self.kill()
+			del self
 		
 class Tile(pygame.sprite.Sprite):
 	def __init__(self, game, wall, angle):
