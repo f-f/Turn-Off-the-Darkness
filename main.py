@@ -21,8 +21,8 @@ class Game(pygame.sprite.Sprite):
 		#pygame.event.set_grab(True)
 		
 		self.image = pygame.display.set_mode(
-			(800,600),DOUBLEBUF
-			#(1366,768),DOUBLEBUF|FULLSCREEN|HWSURFACE
+			#(800,600),DOUBLEBUF
+			(1366,768),DOUBLEBUF|FULLSCREEN|HWSURFACE
 		)
 		self.rect = self.image.get_rect()
 		pygame.display.set_caption('GGJ')
