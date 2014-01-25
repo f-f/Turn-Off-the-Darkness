@@ -13,6 +13,12 @@ class Sounds:
 		self.ambient = pygame.mixer.Sound("audio/Ambient.ogg")
 		self.drums = pygame.mixer.Sound("audio/Drums.ogg")
 
+		#sounds
+		self.tick = pygame.mixer.Sound("audio/Tick.ogg")
+		self.monsters = pygame.mixer.Sound("audio/Monsters.ogg")
+		self.diapason = pygame.mixer.Sound("audio/Diapason.ogg")
+		self.step = pygame.mixer.Sound("audio/Step.ogg")
+
 		pygame.mixer.init(44100,-16,2, 1024) #initialize mixer
 
 		#self.channel = {}
@@ -34,10 +40,25 @@ class Sounds:
 		self.bass.set_volume(0.0)
 		self.drums.set_volume(0.0)
 
+		self.step.play(-1)
+		self.monsters.play(-1)
+
+		self.step.set_volume(0.2)
+		self.monsters.set_volume(0.1)
+
 
 	def update(self):
 		if self.game.beat: 
 			self.counter +=1 #add a beat
+
+			#events: light&sound
+			if self.game.lightAction:
+				self.tick.play()
+				self.tick.set_volume(0.5)
+			if self.game.soundAction:
+				self.diapason.play()
+				self.diapason.set_volume(0.4)
+
 			if self.counter >= 32: 
 				self.counter = 0 #resetting the counter
 
