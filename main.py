@@ -35,16 +35,12 @@ class Game(pygame.sprite.Sprite):
 		
 		self.player = Player(self)
 		self.foreground.add(self.player)
-<<<<<<< HEAD
 
 		self.background = Background(self)
-=======
 		
 		self.test_wall = Wall(self)
 		self.foreground.add(self.test_wall)
 		
->>>>>>> fc806094efa98b16f6b4dfcbfdc80148b9391cb8
-	
 	def run(self):
 		while not self.quit:
 			self.events()
