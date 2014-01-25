@@ -18,6 +18,7 @@ class Game(pygame.sprite.Sprite):
 		self.clock = pygame.time.Clock()
 		self.max_fps = 120
 		self.tick = 0
+		self.speed = 4*UNIT  # per second
 		
 		# se usati insieme permettono di muovere il mouse infinitamente
 		# ma bloccano la tastiera "all'esterno"
