@@ -25,6 +25,7 @@ class Game(pygame.sprite.Sprite):
 		self.lightAction = False
 		self.countActionPerBpm = 0
 		self.death = False
+		self.lives = 3
 		
 		# se usati insieme permettono di muovere il mouse infinitamente
 		# ma bloccano la tastiera "all'esterno"
@@ -118,7 +119,16 @@ class Game(pygame.sprite.Sprite):
 			print self.countActionPerBpm
 			self.countActionPerBpm = 0
 		
+		if self.death:
+			self.lives -= 1
+			
+			self.walls.empty
+			print self.lives
+			if self.lives<1:
+				self.quit = True
+		
 		self.beat = False
+		self.death = False
 		
 	def draw(self):
 		self.image.fill(0)
