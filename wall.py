@@ -38,7 +38,6 @@ class Walls(pygame.sprite.Group):
 			#"""
 			
 			n_holes = 3
-			#hole_w = 
 			start_angle = random.uniform(-math.pi,+math.pi)
 			for i in xrange(n_holes):
 				angle = start_angle + i*math.pi*2/n_holes
