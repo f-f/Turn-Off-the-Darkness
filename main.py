@@ -69,7 +69,9 @@ class Game(pygame.sprite.Sprite):
 		self.walls = Walls(self)
 		
 		self.lifebar = LifeBar(self)
+		self.pointWrite = Points(self)
 		self.menusGroup.add(self.lifebar)
+		self.menusGroup.add(self.pointWrite)
 
 		self.light = Light(self)
 		self.effects.add(self.light)
@@ -165,11 +167,11 @@ class Game(pygame.sprite.Sprite):
 
 			# punteggio
 			if (self.frenzy <= F_CALM):
-				self.points += 1
+				self.points += random.randint(10,20)
 			elif (self.frenzy <= F_TRANS2):
-				self.points += 2
+				self.points += random.randint(100,200)
 			else:
-				self.points += 10
+				self.points += random.randint(1000,2000)
 		#print "Punteggio: %s" %self.points
 
 		if self.death:

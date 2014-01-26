@@ -10,7 +10,6 @@ class LifeBar(pygame.sprite.Sprite):
 		self.rect.w *= self.game.lives
 		
 		self.imageEmpty = pygame.Surface(self.rect.size).convert_alpha()
-		self.imageEmpty.fill(0)
 
 		self.image = self.imageEmpty
 
@@ -28,4 +27,28 @@ class LifeBar(pygame.sprite.Sprite):
 			self.image.fill(0)
 			for i in xrange(0,self.game.lives):
 				self.image.blit(self.image_loaded,(i*self.image_loaded.get_rect().w,0))
+
+
+class Points(pygame.sprite.Sprite):
+	def __init__(self, game):
+		pygame.sprite.Sprite.__init__(self)
+		self.game = game
+		
+		
+
+		self.font = pygame.font.SysFont("monospace", 24)
+
+		self.update()
+		
+	
+	def update(self):
+		self.image = self.font.render(
+			str(self.game.points),
+			True, (255,255,255)
+		)
+		self.rect = self.image.get_rect()
+
+		self.rect.topright = self.game.rect.topright
+		self.rect.right -= 100
+		self.rect.top += 50
 
