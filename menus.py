@@ -43,10 +43,9 @@ class LifeBar(pygame.sprite.Sprite):
 		
 	
 	def update(self):
-		if self.game.death:
-			self.image.fill(0)
-			for i in xrange(0,self.game.lives):
-				self.image.blit(self.image_loaded,(i*self.image_loaded.get_rect().w,0))
+		self.image.fill(0)
+		for i in xrange(0,self.game.lives):
+			self.image.blit(self.image_loaded,(i*self.image_loaded.get_rect().w,0))
 
 class FrenzyNegBar(pygame.sprite.Sprite):
 	def __init__(self, game):
