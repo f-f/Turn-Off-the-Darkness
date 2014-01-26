@@ -55,7 +55,10 @@ class Radar(pygame.sprite.Sprite):
 	
 	def update(self):
 		if self.game.beat:
-			if self.game.soundTimer > 0: self.image = self.image_loaded
+			if self.game.soundTimer > 0: 
+				self.image = pygame.Surface(self.rect.size).convert_alpha()
+				self.image.fill((0,0,0))
+				
 			else: self.image = self.imageEmpty
 
 		
