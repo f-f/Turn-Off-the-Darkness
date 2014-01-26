@@ -65,7 +65,7 @@ class FrenzyNegBar(pygame.sprite.Sprite):
 	
 	def update(self):
 		if self.game.beat:
-			self.negfrenzy = 10-self.game.frenzy
+			self.negfrenzy = 11-self.game.frenzy
 
 			self.image.fill(0)
 			for i in xrange(0,self.negfrenzy):
