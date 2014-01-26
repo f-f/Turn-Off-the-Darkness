@@ -125,7 +125,7 @@ class Tile(pygame.sprite.Sprite):
 		
 		# load png
 		#self.image_start = pygame.image.load('img/test_tile01.png').convert_alpha()
-		self.image_normal = pygame.image.load(tools.get_pathname(tools.LEVELS[level],"Muro",1)).convert_alpha()
+		self.image_normal = pygame.image.load(tools.get_pathname(tools.LEVELS[level],"Muro",random.randint(1,9))).convert_alpha()
 		self.image_sonar = pygame.image.load(tools.get_pathname("muro_sonar","Muro",random.randint(1,2))).convert_alpha()
 		#
 		
