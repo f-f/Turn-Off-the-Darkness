@@ -43,7 +43,7 @@ class Walls(pygame.sprite.Group):
 				angle = start_angle + i*math.pi*2/n_holes
 				w = Wall(
 					self.game,
-					random.randint(20,40),
+					random.randint(20,30),
 					angle
 				)
 				self.add(w)
@@ -99,9 +99,9 @@ class Wall(pygame.sprite.Sprite):
 	
 	def update(self):
 		if self.game.left:
-			self.set_angle(self.angle - 5*self.game.tick*self.game.speed*self.step/UNIT)
+			self.set_angle(self.angle - 2*self.game.tick*self.game.speed*self.step/UNIT)
 		if self.game.right:
-			self.set_angle(self.angle + 5*self.game.tick*self.game.speed*self.step/UNIT)
+			self.set_angle(self.angle + 2*self.game.tick*self.game.speed*self.step/UNIT)
 		self.tiles.update()
 		
 		self.rect.y += self.game.tick * (5.0*UNIT) #
