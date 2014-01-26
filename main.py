@@ -34,6 +34,7 @@ class Game(pygame.sprite.Sprite):
 		self.levelCompletion = 0
 		self.points = 0
 		self.paused = True
+		self.slideCount = 2
 		
 		# se usati insieme permettono di muovere il mouse infinitamente
 		# ma bloccano la tastiera "all'esterno"
@@ -109,7 +110,7 @@ class Game(pygame.sprite.Sprite):
 			if event.type==QUIT:
 				self.quit = True
 			elif event.type == KEYDOWN:
-				if self.paused:
+				if self.paused and self.slideCount > 1:
 					self.paused = False
 
 				if event.key == K_ESCAPE:
