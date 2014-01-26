@@ -104,7 +104,7 @@ class Wall(pygame.sprite.Sprite):
 			self.set_angle(self.angle + 2*self.game.tick*self.game.speed*self.step/UNIT)
 		self.tiles.update()
 		
-		self.rect.y += self.game.tick * (5.0*UNIT) #
+		self.rect.y += self.game.tick * self.game.speed /2#(5.0*UNIT) #
 		
 		self.image.fill(0)
 		self.tiles.draw(self.image)
@@ -125,7 +125,7 @@ class Tile(pygame.sprite.Sprite):
 		
 		# load png
 		#self.image_start = pygame.image.load('img/test_tile01.png').convert_alpha()
-		self.image_normal = pygame.image.load(tools.get_pathname(tools.LEVELS[level],"Muro",1)).convert_alpha()
+		self.image_normal = pygame.image.load(tools.get_pathname(tools.LEVELS[level],"Muro",random.randint(1,9))).convert_alpha()
 		self.image_sonar = pygame.image.load(tools.get_pathname("muro_sonar","Muro",random.randint(1,2))).convert_alpha()
 		#
 		

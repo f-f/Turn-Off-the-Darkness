@@ -5,6 +5,7 @@ from wall import *
 from sounds import *
 from effects import *
 from menus import *
+from slide import *
 
 from background import *
 
@@ -34,7 +35,7 @@ class Game(pygame.sprite.Sprite):
 		self.levelCompletion = 0
 		self.points = 0
 		self.paused = True
-		self.slideCount = 2
+		self.slideCount = 0
 		
 		# se usati insieme permettono di muovere il mouse infinitamente
 		# ma bloccano la tastiera "all'esterno"
@@ -61,9 +62,12 @@ class Game(pygame.sprite.Sprite):
 		self.effects = pygame.sprite.Group()
 		self.foreground = pygame.sprite.Group()
 		self.menusGroup = pygame.sprite.OrderedUpdates()
+		self.slideGroup = pygame.sprite.Group()
 		
 		self.background = Background(self)
 		
+		self.slide = Slide(self)
+		self.slideGroup.add(self.slide)
 		
 		self.player = Player(self)
 		self.foreground.add(self.player)
@@ -112,6 +116,11 @@ class Game(pygame.sprite.Sprite):
 			elif event.type == KEYDOWN:
 				if self.paused and self.slideCount > 1:
 					self.paused = False
+				elif self.paused and self.slideCount < 1:
+					self.slideCount +=1
+				elif self.paused and self.slideCount == 1:
+					self.slideCount +=1
+					self.paused = False
 
 				if event.key == K_ESCAPE:
 					self.quit = True
@@ -158,7 +167,7 @@ class Game(pygame.sprite.Sprite):
 			self.countActionPerBpm = 0
 
 			if not self.paused:
-				self.speed = (1.0 + float(self.frenzy)/7.5) * 8 * UNIT # era 10
+				self.speed = (1.0 + float(self.frenzy)/7.5) * 10 * UNIT # era 10
 		
 		if self.soundTimer > 0:
 			self.background.black = True
@@ -178,6 +187,7 @@ class Game(pygame.sprite.Sprite):
 			self.walls.update()
 		self.foreground.update()
 		self.menusGroup.update()
+		self.slideGroup.update()
 
 		if self.beat and not self.paused:
 			self.lightAction = False
@@ -219,6 +229,9 @@ class Game(pygame.sprite.Sprite):
 		self.effects.draw(self.image)
 		self.foreground.draw(self.image)
 		self.menusGroup.draw(self.image)
+
+		#slides
+		self.slideGroup.draw(self.image)
 		
 		
 		fps = pygame.font.SysFont(
