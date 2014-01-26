@@ -64,7 +64,7 @@ class Background(pygame.sprite.Sprite):
 			self.image.fill((0,0,0))
 		else:
 			self.image.fill(0)
-			self.offset += self.game.tick * self.game.speed/4
+			self.offset += self.game.tick * self.game.speed
 			if (self.offset > self.side):
 				self.offset = 0
 				del self.rows[-1]
