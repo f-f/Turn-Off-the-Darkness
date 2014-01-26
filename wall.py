@@ -112,12 +112,18 @@ class Tile(pygame.sprite.Sprite):
 		
 		# load png
 		#self.image_start = pygame.image.load('img/test_tile01.png').convert_alpha()
-		self.image_start = pygame.image.load(tools.get_pathname(tools.LEVELS[level],"Muro",1)).convert_alpha()
+		self.image_normal = pygame.image.load(tools.get_pathname(tools.LEVELS[level],"Muro",1)).convert_alpha()
+		self.image_sonar = pygame.image.load(tools.get_pathname("muro_sonar","Muro",random.randint(1,2))).convert_alpha()
 		#
 		
 		self.update()
 
 	def update(self):
+		if self.game.soundTimer > 0:
+			self.image_start = self.image_sonar
+		else:
+			self.image_start = self.image_normal
+		
 		self.image = pygame.transform.rotate(self.image_start, -180.0*self.angle/math.pi+90)
 		#self.image = self.image_start
 		self.rect = self.image.get_rect()
