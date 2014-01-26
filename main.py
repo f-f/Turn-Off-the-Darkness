@@ -109,6 +109,9 @@ class Game(pygame.sprite.Sprite):
 			if event.type==QUIT:
 				self.quit = True
 			elif event.type == KEYDOWN:
+				if self.paused:
+					self.paused = False
+
 				if event.key == K_ESCAPE:
 					self.quit = True
 				if event.key == K_LEFT:
