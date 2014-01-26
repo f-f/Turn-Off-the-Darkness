@@ -58,34 +58,33 @@ class Radar(pygame.sprite.Sprite):
 		
 	
 	def update(self):
-		#if self.game.beat:
-			if self.game.soundTimer > 0:
-				
-				self.imageCircled = pygame.Surface(self.rect.size).convert_alpha()
-				self.imageCircled.fill((0,0,0))
-				
-				wLower = None
-				for w in self.game.walls:
-					if not wLower or w.rect.centery<wLower.rect.centerx:
-						if w.rect.centery - w.outer_radius < self.game.player.rect.top-2*UNIT:
-							wLower = w
-				
-				if wLower:
-					pygame.draw.circle(self.imageCircled,(0,0,0,16),wLower.rect.center,wLower.outer_radius+UNIT)
-				
-				self.imageRadar = pygame.Surface(self.rect.size).convert_alpha()
-				self.imageRadar.fill(0)
-				self.imageRadar.blit(self.image_loaded,
-					(
-						self.game.player.rect.centerx-self.image_loaded.get_rect().centerx,
-						self.game.player.rect.centery-self.image_loaded.get_rect().centery
-					)
+		if self.game.soundTimer > 0:
+			
+			self.imageCircled = pygame.Surface(self.rect.size).convert_alpha()
+			self.imageCircled.fill((0,0,0))
+			
+			wLower = None
+			for w in self.game.walls:
+				if not wLower or w.rect.centery<wLower.rect.centerx:
+					if w.rect.centery - w.outer_radius < self.game.player.rect.top-2*UNIT:
+						wLower = w
+			
+			if wLower:
+				pygame.draw.circle(self.imageCircled,(0,0,0,16),wLower.rect.center,wLower.outer_radius)
+			
+			self.imageRadar = pygame.Surface(self.rect.size).convert_alpha()
+			self.imageRadar.fill(0)
+			self.imageRadar.blit(self.imageCircled, (0,0))
+			self.imageRadar.blit(self.image_loaded,
+				(
+					self.game.player.rect.centerx-self.image_loaded.get_rect().centerx,
+					self.game.player.rect.centery-self.image_loaded.get_rect().centery
 				)
-				self.imageRadar.blit(self.imageCircled, (0,0))
-				
-				self.image = self.imageRadar
-				#self.image = self.imageCircled
-			else:
-				self.image = self.imageEmpty
+			)
+			
+			self.image = self.imageRadar
+			#self.image = self.imageCircled
+		else:
+			self.image = self.imageEmpty
 
 		
