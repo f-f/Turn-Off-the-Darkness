@@ -4,6 +4,7 @@ from player import *
 from wall import *
 from sounds import *
 from effects import *
+from menus import *
 
 from background import *
 
@@ -56,6 +57,7 @@ class Game(pygame.sprite.Sprite):
 		
 		self.effects = pygame.sprite.Group()
 		self.foreground = pygame.sprite.Group()
+		self.menusGroup = pygame.sprite.Group()
 		
 		self.background = Background(self)
 		
@@ -65,6 +67,9 @@ class Game(pygame.sprite.Sprite):
 		
 		self.walls = Walls(self)
 		
+		self.lifebar = LifeBar(self)
+		self.menusGroup.add(self.lifebar)
+
 		self.light = Light(self)
 		self.effects.add(self.light)
 		
@@ -147,6 +152,7 @@ class Game(pygame.sprite.Sprite):
 		self.effects.update()
 		self.walls.update()
 		self.foreground.update()
+		self.menusGroup.update()
 
 		if self.beat:
 			self.lightAction = False
@@ -158,7 +164,6 @@ class Game(pygame.sprite.Sprite):
 
 		if self.death:
 			self.lives -= 1
-			
 			self.reset()
 			
 			print self.lives
@@ -178,6 +183,7 @@ class Game(pygame.sprite.Sprite):
 		self.walls.draw(self.image)
 		self.effects.draw(self.image)
 		self.foreground.draw(self.image)
+		self.menusGroup.draw(self.image)
 		
 		
 		fps = pygame.font.SysFont(
