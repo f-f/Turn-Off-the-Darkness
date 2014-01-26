@@ -35,7 +35,9 @@ class Light(pygame.sprite.Sprite):
 	
 	def update(self):
 		if self.game.beat:
-			if self.game.lightTimer > 0: self.image = self.image_loaded
+			if self.game.lightTimer > 0: 
+				self.image = self.image_loaded
+				self.game.soundTimer = 0
 			else: self.image = self.imageEmpty
 
 class Radar(pygame.sprite.Sprite):
@@ -59,7 +61,8 @@ class Radar(pygame.sprite.Sprite):
 	
 	def update(self):
 		if self.game.soundTimer > 0:
-			
+			self.game.lightTimer = 0
+
 			self.imageCircled = pygame.Surface(self.rect.size).convert_alpha()
 			self.imageCircled.fill((0,0,0))
 			
