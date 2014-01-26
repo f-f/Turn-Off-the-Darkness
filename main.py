@@ -76,7 +76,7 @@ class Game(pygame.sprite.Sprite):
 		
 		self.lifebar = LifeBar(self)
 		self.pointWrite = Points(self)
-		#self.levelCompWrite = LevelComp(self)
+		self.keysBar = KeysBar(self)
 		self.bar = Bar(self)
 		self.frenzyNegBar = FrenzyNegBar(self)
 
@@ -84,7 +84,7 @@ class Game(pygame.sprite.Sprite):
 		self.menusGroup.add(self.lifebar)
 		self.menusGroup.add(self.pointWrite)
 		self.menusGroup.add(self.frenzyNegBar)
-		#self.menusGroup.add(self.levelCompWrite)
+		self.menusGroup.add(self.keysBar)
 
 
 		self.light = Light(self)

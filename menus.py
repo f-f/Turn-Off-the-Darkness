@@ -47,6 +47,31 @@ class LifeBar(pygame.sprite.Sprite):
 		for i in xrange(0,self.game.lives):
 			self.image.blit(self.image_loaded,(i*self.image_loaded.get_rect().w,0))
 
+class KeysBar(pygame.sprite.Sprite):
+	def __init__(self, game):
+		pygame.sprite.Sprite.__init__(self)
+		self.game = game
+		
+		self.images = [pygame.image.load('img/diapason.png').convert_alpha(),
+					pygame.image.load('img/torcia.png').convert_alpha(),
+					pygame.image.load('img/frecce.png').convert_alpha()]
+
+		dist = 64
+
+		self.image = pygame.Surface((self.images[0].get_rect().w,self.images[0].get_rect().h*3 + dist*3)).convert_alpha()
+		self.rect = self.image.get_rect()
+
+
+		self.rect.bottomright = self.game.rect.bottomright
+
+		self.image.fill(0)
+		for i in xrange(0,3):
+			self.image.blit(self.images[i],(0, i*(self.images[0].get_rect().h+dist) ))
+		
+	
+	def update(self):
+		None
+
 class FrenzyNegBar(pygame.sprite.Sprite):
 	def __init__(self, game):
 		pygame.sprite.Sprite.__init__(self)
