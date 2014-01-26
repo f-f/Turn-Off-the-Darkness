@@ -35,7 +35,7 @@ class Game(pygame.sprite.Sprite):
 		self.levelCompletion = 0
 		self.points = 0
 		self.paused = True
-		self.slideCount = 0
+		self.slideCount = 1
 		
 		# se usati insieme permettono di muovere il mouse infinitamente
 		# ma bloccano la tastiera "all'esterno"
@@ -114,11 +114,11 @@ class Game(pygame.sprite.Sprite):
 			if event.type==QUIT:
 				self.quit = True
 			elif event.type == KEYDOWN:
-				if self.paused and self.slideCount > 1:
+				if self.paused and self.slideCount > 2:
 					self.paused = False
-				elif self.paused and self.slideCount < 1:
+				elif self.paused and self.slideCount < 2:
 					self.slideCount +=1
-				elif self.paused and self.slideCount == 1:
+				elif self.paused and self.slideCount == 2:
 					self.slideCount +=1
 					self.paused = False
 
@@ -161,13 +161,13 @@ class Game(pygame.sprite.Sprite):
 			if self.lightAction:
 				self.lightTimer = 2 #parameters
 			if self.soundAction:
-				self.soundTimer = 4 
+				self.soundTimer = 2
 				
 
 			self.countActionPerBpm = 0
 
 			if not self.paused:
-				self.speed = (1.0 + float(self.frenzy)/7.5) * 10 * UNIT # era 10
+				self.speed = 10 * UNIT * math.log(math.log(self.points +1) +1)# era 10
 		
 		if self.soundTimer > 0:
 			self.background.black = True
@@ -211,9 +211,11 @@ class Game(pygame.sprite.Sprite):
 			self.speed = 0
 			self.player.image = self.player.deadIm
 			
-			print self.lives
-			#if self.lives<1:
-				#self.quit = True
+			if self.lives<1:
+				self.slideCount = 0
+				self.lives = 3
+				self.frenzy = 1
+				self.points = 0
 		
 		self.beat = False
 		self.death = False

@@ -59,7 +59,7 @@ class Player(pygame.sprite.Sprite):
 						math.fmod(w.angle+w.step/2+w.n*w.step,2*math.pi) > (3*math.pi/2)
 					):
 					self.game.death = True
-					print "morto?"
+					#print "morto?"
 					#exit(1)
 				elif self.passaggio == 0:
 					self.passaggio = 1

@@ -9,6 +9,7 @@ class Slide(pygame.sprite.Sprite):
 		self.imageEmpty.fill(0)
 		
 		self.images = [
+			pygame.image.load('img/Menu/gameover.png').convert_alpha(),
 			pygame.image.load('img/Menu/menu.png').convert_alpha(),
 			pygame.image.load('img/Menu/slide.png').convert_alpha(),
 			]
@@ -20,7 +21,7 @@ class Slide(pygame.sprite.Sprite):
 		#self.rect.bottom = int(self.game.rect.h)
 		
 	def update(self):
-		if self.game.slideCount < 2:
+		if self.game.slideCount <= 2:
 			self.image = self.images[self.game.slideCount]
 		else:
 			self.image = self.imageEmpty
