@@ -161,13 +161,13 @@ class Game(pygame.sprite.Sprite):
 			if self.lightAction:
 				self.lightTimer = 2 #parameters
 			if self.soundAction:
-				self.soundTimer = 4 
+				self.soundTimer = 2
 				
 
 			self.countActionPerBpm = 0
 
 			if not self.paused:
-				self.speed = (1.0 + float(self.frenzy)/7.5) * 10 * UNIT # era 10
+				self.speed = 10 * UNIT * math.log(math.log(self.points +1) +1)# era 10
 		
 		if self.soundTimer > 0:
 			self.background.black = True
