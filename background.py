@@ -32,7 +32,7 @@ class Background(pygame.sprite.Sprite):
 	def new_row(self):
 	# Definisce una riga dello schermo con tiles random in base al livello e la ritorna
 		self.row = pygame.Surface((self.game.rect.w, self.side)).convert_alpha()
-		self.position = -self.side/2
+		self.position = -self.side/2 + random.randint(-self.side/2 + 10, self.side/2 - 10)
 		fr = self.game.frenzy
 		
 		for i in xrange(0, self.game.rect.w/self.side + 1):
