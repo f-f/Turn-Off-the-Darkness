@@ -51,14 +51,32 @@ class Radar(pygame.sprite.Sprite):
 
 		self.image = self.imageEmpty		
 		self.rect.center = self.game.player.rect.center
+
+		#self.imageRadar = None
 		
 	
 	def update(self):
-		if self.game.beat:
-			if self.game.soundTimer > 0: 
-				self.image = pygame.Surface(self.rect.size).convert_alpha()
-				self.image.fill((0,0,0))
-				
-			else: self.image = self.imageEmpty
+		#if self.game.beat:
+			if self.game.soundTimer > 0:
+				self.imageRadar = pygame.Surface(self.rect.size).convert_alpha()
+				self.imageRadar.fill((0,0,0))
+					#dMin = self.rect.w
+				wLower = None
+				for w in self.game.walls:
+					if not wLower or w.rect.centery<wLower.rect.centerx:
+						wLower = w
+					#d = math.hypot(
+					#	self.rect.centerx - w.rect.centerx,
+					#	self.rect.centery - w.rect.centery
+					#)
+					#if d < dMin: 
+					#	dMin = d
+					#	wMin = w
+				if wLower:
+					pygame.draw.circle(self.imageRadar,(0,0,0,64),wLower.rect.center,wLower.outer_radius)
+				self.image = self.imageRadar
+			else:
+				self.image = self.imageEmpty
+				self.imageRadar = None
 
 		
