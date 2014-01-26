@@ -33,8 +33,8 @@ class Game(pygame.sprite.Sprite):
 		
 		# se usati insieme permettono di muovere il mouse infinitamente
 		# ma bloccano la tastiera "all'esterno"
-		#pygame.mouse.set_visible(False)
-		#pygame.event.set_grab(True)
+		pygame.mouse.set_visible(False)
+		pygame.event.set_grab(True)
 		
 		# game.state_varible
 		pygame.time.set_timer(USEREVENT, int(60*1000/BPM))

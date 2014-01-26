@@ -62,9 +62,17 @@ class Wall(pygame.sprite.Sprite):
 		
 		self.tiles = pygame.sprite.Group()
 		
+		if self.game.frenzy <= F_CALM:
+			level = 0
+		elif self.game.frenzy <= F_TRANS2:
+			level = 1
+		else:
+			level = 2
+		
 		for i in xrange(0,self.n):
 			tile = Tile(
-					game, self, self.angle + i*self.step
+					game, self, self.angle + i*self.step,
+					level
 				)
 			self.tiles.add(tile)
 		
@@ -96,16 +104,15 @@ class Wall(pygame.sprite.Sprite):
 			del self
 		
 class Tile(pygame.sprite.Sprite):
-	def __init__(self, game, wall, angle):
+	def __init__(self, game, wall, angle, level):
 		pygame.sprite.Sprite.__init__(self)
 		self.game = game
 		self.wall = wall
 		self.angle = angle
 		
 		# load png
-		#self.image_start = pygame.Surface((UNIT,UNIT)).convert_alpha()
-		#self.image_start.fill((0,255,255))
-		self.image_start = pygame.image.load('img/test_tile01.png').convert_alpha()
+		#self.image_start = pygame.image.load('img/test_tile01.png').convert_alpha()
+		self.image_start = pygame.image.load(tools.get_pathname(tools.LEVELS[level],"Muro",1)).convert_alpha()
 		#
 		
 		self.update()
