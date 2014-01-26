@@ -140,7 +140,7 @@ class Game(pygame.sprite.Sprite):
 
 			self.countActionPerBpm = 0
 
-			self.speed = (1.0 + float(self.frenzy)/7.5) * 5 * UNIT # era 10
+			self.speed = (1.0 + float(self.frenzy)/7.5) * 7.5 * UNIT # era 10
 		
 		if self.soundTimer > 0:
 			self.background.black = True
