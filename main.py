@@ -170,7 +170,7 @@ class Game(pygame.sprite.Sprite):
 				self.points += 2
 			else:
 				self.points += 10
-		print "Punteggio: %s" %self.points
+		#print "Punteggio: %s" %self.points
 
 		if self.death:
 			self.lives -= 1
