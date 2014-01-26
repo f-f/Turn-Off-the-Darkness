@@ -13,7 +13,7 @@ class Walls(pygame.sprite.Group):
 		if self.game.beat:
 			self.beat_counter += 1
 		
-		if self.beat_counter >= 2:
+		if self.beat_counter > 3:
 			self.beat_counter = 0
 			#angle = random.uniform(-math.pi,+math.pi)  # migliore finora
 			
@@ -91,7 +91,7 @@ class Wall(pygame.sprite.Sprite):
 			self.set_angle(self.angle + 5*self.game.tick*self.game.speed*self.step/UNIT)
 		self.tiles.update()
 		
-		self.rect.y += self.game.tick*self.game.speed
+		self.rect.y += self.game.tick * (5.0*UNIT) #
 		
 		self.image.fill(0)
 		self.tiles.draw(self.image)

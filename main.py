@@ -135,7 +135,7 @@ class Game(pygame.sprite.Sprite):
 
 			self.countActionPerBpm = 0
 
-			self.speed = (1.0 + float(self.frenzy)/7.5) * 6 * UNIT
+			self.speed = (1.0 + float(self.frenzy)/7.5) * 5 * UNIT # era 10
 
 		self.sounds.update()
 		self.background.update()
