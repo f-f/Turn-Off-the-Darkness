@@ -32,6 +32,7 @@ class Game(pygame.sprite.Sprite):
 		self.lightTimer = 0
 		self.soundTimer = 0
 		self.levelCompletion = 0
+		self.points = 0
 		
 		# se usati insieme permettono di muovere il mouse infinitamente
 		# ma bloccano la tastiera "all'esterno"
@@ -79,7 +80,7 @@ class Game(pygame.sprite.Sprite):
 		self.radar = Radar(self)
 		self.effects.add(self.radar)
 		
-		
+
 		#self.test_wall = Wall(self)
 		#self.foreground.add(self.test_wall)
 		
@@ -161,6 +162,15 @@ class Game(pygame.sprite.Sprite):
 				self.lightTimer -= 1
 			if self.soundTimer > 0:  
 				self.soundTimer -= 1
+
+			# punteggio
+			if (self.frenzy <= F_CALM):
+				self.points += 1
+			elif (self.frenzy <= F_TRANS2):
+				self.points += 2
+			else:
+				self.points += 10
+		#print "Punteggio: %s" %self.points
 
 		if self.death:
 			self.lives -= 1
