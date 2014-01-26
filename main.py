@@ -30,6 +30,7 @@ class Game(pygame.sprite.Sprite):
 		self.lives = 3
 		self.lightTimer = 0
 		self.soundTimer = 0
+		self.levelCompletion = 0
 		
 		# se usati insieme permettono di muovere il mouse infinitamente
 		# ma bloccano la tastiera "all'esterno"
@@ -133,6 +134,8 @@ class Game(pygame.sprite.Sprite):
 				
 
 			self.countActionPerBpm = 0
+
+			self.speed = (1.0 + float(self.frenzy)/7.5) * 6 * UNIT
 
 		self.sounds.update()
 		self.background.update()

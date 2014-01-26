@@ -89,7 +89,7 @@ class Sounds:
 				elif self.game.frenzy == F_TRANS1:
 					self.setVolumes(0.75, 0.75, 0.75, 0.0, 0.75, 0.0, 0.0, 0.0)
 
-				elif self.game.frenzy == F_TRANS2:
+				elif self.game.frenzy <= F_TRANS2:
 					self.setVolumes(0.70, 0.75, 0.75, 0.0, 0.75, 0.75, 0.0, 0.0)
 
 				elif self.game.frenzy == F_FRNZ1:

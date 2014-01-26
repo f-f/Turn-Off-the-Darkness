@@ -9,9 +9,9 @@ WALL_INNER_RADIUS = 20*UNIT  # will it be const?  40*UNIT ?
 
 
 #frenzy settings
-F_AMB = 3
-F_CALM = 5
-F_TRANS1 = 6
+F_AMB = 2
+F_CALM = 4
+F_TRANS1 = 5
 F_TRANS2 = 7
 F_FRNZ1 = 8
 F_FRNZ2 = 9

@@ -29,8 +29,10 @@ class Player(pygame.sprite.Sprite):
 		self.wait = 0.0
 		self.fps = 15.0
 		self.index = 0
+		self.passaggio = 0
 		
 	def update(self):
+		self.fps = 15.0 * (self.game.speed)/(8.0*UNIT)
 		self.wait += self.game.tick
 		if self.wait > 1.0/self.fps:
 			self.wait = 0.0
@@ -56,6 +58,11 @@ class Player(pygame.sprite.Sprite):
 					self.game.death = True
 					print "morto?"
 					#exit(1)
+				elif self.passaggio == 0:
+					self.passaggio = 1
+					self.game.levelCompletion += 1
+			else:
+				self.passaggio = 0
 			
 			#
 			#	self.game.death = True
