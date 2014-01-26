@@ -44,39 +44,48 @@ class Radar(pygame.sprite.Sprite):
 		self.game = game
 		
 		self.image_loaded = pygame.image.load('img/Radar/radar_unico_2.png').convert_alpha()
-		self.rect = self.image_loaded.get_rect()
+		#self.rect = self.image_loaded.get_rect()
+		self.rect = self.game.rect
+		self.rect.center = self.game.rect.center
 		
 		self.imageEmpty = pygame.Surface(self.rect.size).convert_alpha()
 		self.imageEmpty.fill(0)
 
 		self.image = self.imageEmpty		
-		self.rect.center = self.game.player.rect.center
-
+		#self.rect.center = self.game.player.rect.center
+		
 		#self.imageRadar = None
 		
 	
 	def update(self):
 		#if self.game.beat:
 			if self.game.soundTimer > 0:
-				self.imageRadar = pygame.Surface(self.rect.size).convert_alpha()
-				self.imageRadar.fill((0,0,0))
-					#dMin = self.rect.w
+				
+				self.imageCircled = pygame.Surface(self.rect.size).convert_alpha()
+				self.imageCircled.fill((0,0,0))
+				
 				wLower = None
 				for w in self.game.walls:
 					if not wLower or w.rect.centery<wLower.rect.centerx:
-						wLower = w
-					#d = math.hypot(
-					#	self.rect.centerx - w.rect.centerx,
-					#	self.rect.centery - w.rect.centery
-					#)
-					#if d < dMin: 
-					#	dMin = d
-					#	wMin = w
+						if w.rect.centery - w.outer_radius < self.game.player.rect.top-2*UNIT:
+							wLower = w
+				
 				if wLower:
-					pygame.draw.circle(self.imageRadar,(0,0,0,64),wLower.rect.center,wLower.outer_radius)
+					pygame.draw.circle(self.imageCircled,(0,0,0,16),wLower.rect.center,wLower.outer_radius)
+				
+				self.imageRadar = pygame.Surface(self.rect.size).convert_alpha()
+				self.imageRadar.fill(0)
+				self.imageRadar.blit(self.image_loaded,
+					(
+						self.game.player.rect.centerx-self.image_loaded.get_rect().centerx,
+						self.game.player.rect.centery-self.image_loaded.get_rect().centery
+					)
+				)
+				self.imageRadar.blit(self.imageCircled, (0,0))
+				
 				self.image = self.imageRadar
+				#self.image = self.imageCircled
 			else:
 				self.image = self.imageEmpty
-				self.imageRadar = None
 
 		

@@ -18,6 +18,8 @@ class Background(pygame.sprite.Sprite):
 		self.rows = list()
 		for i in xrange(0, self.game.rect.h/self.side + 1):
 			self.rows.append(self.new_row())
+		
+		self.black = False
 
 	def create_tilelist(self, livello):
 		self.tiles = list()
@@ -58,13 +60,17 @@ class Background(pygame.sprite.Sprite):
 		self.row.blit(self.tile, (self.position, 0))
 
 	def update(self):
-		self.offset += self.game.tick * self.game.speed/4
-		if (self.offset > self.side):
-			self.offset = 0
-			del self.rows[-1]
-			self.rows.insert(0, self.new_row())
-			
-		for i in xrange(len(self.rows)):
-			self.image.blit(self.rows[i], (0, i * self.side + self.offset))
+		if self.black:
+			self.image.fill((0,0,0))
+		else:
+			self.image.fill(0)
+			self.offset += self.game.tick * self.game.speed/4
+			if (self.offset > self.side):
+				self.offset = 0
+				del self.rows[-1]
+				self.rows.insert(0, self.new_row())
+				
+			for i in xrange(len(self.rows)):
+				self.image.blit(self.rows[i], (0, i * self.side + self.offset))
 
-		self.image.blit(self.rows[-1], (0, -self.side + self.offset))
+			self.image.blit(self.rows[-1], (0, -self.side + self.offset))
