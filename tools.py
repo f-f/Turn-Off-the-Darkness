@@ -1,8 +1,11 @@
+LEVELS = ["Fogna","Dungeon","Inferno"]
+N_TILES = [1,1,5]
+
 def get_pathname(livello, tipo, sufx = 1):
 	if (tipo != "Muro"):
-		return "img/%s/%s_%s.png" % (livello, tipo, sufx + 1)
+		return "img/Tile/%s/%s_%s.png" % (livello, tipo, sufx + 1)
 	else:
-		return "img/%s/%s_%s.png" % (livello, tipo, sufx)
+		return "img/Tile/%s/%s_%s.png" % (livello, tipo, sufx)
 
 def create_tilelist(livello):
 	tiles = list()
