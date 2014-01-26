@@ -71,7 +71,7 @@ class Radar(pygame.sprite.Sprite):
 							wLower = w
 				
 				if wLower:
-					pygame.draw.circle(self.imageCircled,(0,0,0,16),wLower.rect.center,wLower.outer_radius)
+					pygame.draw.circle(self.imageCircled,(0,0,0,16),wLower.rect.center,wLower.outer_radius+UNIT)
 				
 				self.imageRadar = pygame.Surface(self.rect.size).convert_alpha()
 				self.imageRadar.fill(0)

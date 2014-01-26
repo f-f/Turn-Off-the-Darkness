@@ -1,4 +1,4 @@
-LEVELS = ["Fogna","Dungeon","Inferno"]
+LEVELS = ["Fogna","Dungeon","Inferno",]
 N_TILES = [1,1,5]
 
 def get_pathname(livello, tipo, sufx = 1):
