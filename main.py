@@ -58,7 +58,7 @@ class Game(pygame.sprite.Sprite):
 		
 		self.effects = pygame.sprite.Group()
 		self.foreground = pygame.sprite.Group()
-		self.menusGroup = pygame.sprite.Group()
+		self.menusGroup = pygame.sprite.OrderedUpdates()
 		
 		self.background = Background(self)
 		
@@ -70,8 +70,16 @@ class Game(pygame.sprite.Sprite):
 		
 		self.lifebar = LifeBar(self)
 		self.pointWrite = Points(self)
+		#self.levelCompWrite = LevelComp(self)
+		self.bar = Bar(self)
+		self.frenzyNegBar = FrenzyNegBar(self)
+
+		self.menusGroup.add(self.bar)
 		self.menusGroup.add(self.lifebar)
 		self.menusGroup.add(self.pointWrite)
+		self.menusGroup.add(self.frenzyNegBar)
+		#self.menusGroup.add(self.levelCompWrite)
+
 
 		self.light = Light(self)
 		self.effects.add(self.light)
@@ -143,7 +151,7 @@ class Game(pygame.sprite.Sprite):
 
 			self.countActionPerBpm = 0
 
-			self.speed = (1.0 + float(self.frenzy)/7.5) * 7.5 * UNIT # era 10
+			self.speed = (1.0 + float(self.frenzy)/7.5) * 8 * UNIT # era 10
 		
 		if self.soundTimer > 0:
 			self.background.black = True
