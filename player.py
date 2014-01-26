@@ -32,7 +32,7 @@ class Player(pygame.sprite.Sprite):
 		self.passaggio = 0
 		
 	def update(self):
-		self.fps = 15.0 * (self.game.speed)/(8.0*UNIT)
+		self.fps = 15.0 * (self.game.speed)/(8.0*UNIT) + 0.01
 		self.wait += self.game.tick
 		if self.wait > 1.0/self.fps:
 			self.wait = 0.0

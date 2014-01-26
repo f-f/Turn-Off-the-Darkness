@@ -33,6 +33,7 @@ class Game(pygame.sprite.Sprite):
 		self.soundTimer = 0
 		self.levelCompletion = 0
 		self.points = 0
+		self.paused = False
 		
 		# se usati insieme permettono di muovere il mouse infinitamente
 		# ma bloccano la tastiera "all'esterno"
@@ -136,6 +137,7 @@ class Game(pygame.sprite.Sprite):
 	
 	def update(self):
 		if self.beat:
+			#there is the frenzy
 			self.pastActionsPerBpm = self.countActionPerBpm
 			if self.countActionPerBpm > 2 and self.frenzy < 10:
 				self.frenzy += 1
@@ -151,7 +153,8 @@ class Game(pygame.sprite.Sprite):
 
 			self.countActionPerBpm = 0
 
-			self.speed = (1.0 + float(self.frenzy)/7.5) * 8 * UNIT # era 10
+			if not self.paused:
+				self.speed = (1.0 + float(self.frenzy)/7.5) * 8 * UNIT # era 10
 		
 		if self.soundTimer > 0:
 			self.background.black = True
@@ -164,15 +167,15 @@ class Game(pygame.sprite.Sprite):
 			if self.soundTimer > 0:  
 				self.soundTimer -= 1
 
-		
-		self.sounds.update()
 		self.background.update()
-		self.effects.update()
-		self.walls.update()
+		if not self.paused:
+			self.sounds.update()
+			self.effects.update()
+			self.walls.update()
 		self.foreground.update()
 		self.menusGroup.update()
 
-		if self.beat:
+		if self.beat and not self.paused:
 			self.lightAction = False
 			self.soundAction = False
 			
@@ -188,6 +191,10 @@ class Game(pygame.sprite.Sprite):
 		if self.death:
 			self.lives -= 1
 			self.reset()
+			self.paused = True
+
+		if self.paused:
+			self.speed = 0
 			
 			print self.lives
 			#if self.lives<1:

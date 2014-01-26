@@ -45,7 +45,7 @@ class Radar(pygame.sprite.Sprite):
 		pygame.sprite.Sprite.__init__(self)
 		self.game = game
 		
-		self.image_loaded = pygame.image.load('img/Radar/radar_unico_2.png').convert_alpha()
+		self.image_loaded = pygame.image.load('img/Radar/radar4.png').convert_alpha()
 		#self.rect = self.image_loaded.get_rect()
 		self.rect = self.game.rect
 		self.rect.center = self.game.rect.center
@@ -73,11 +73,11 @@ class Radar(pygame.sprite.Sprite):
 						wLower = w
 			
 			if wLower:
-				pygame.draw.circle(self.imageCircled,(0,0,0,16),wLower.rect.center,wLower.outer_radius)
+				pygame.draw.circle(self.imageCircled,(0,0,0,16),wLower.rect.center,wLower.radius)
 			
 			self.imageRadar = pygame.Surface(self.rect.size).convert_alpha()
 			self.imageRadar.fill(0)
-			self.imageRadar.blit(self.imageCircled, (0,0))
+			
 			self.imageRadar.blit(self.image_loaded,
 				(
 					self.game.player.rect.centerx-self.image_loaded.get_rect().centerx,
@@ -85,6 +85,7 @@ class Radar(pygame.sprite.Sprite):
 				)
 			)
 			
+			self.imageRadar.blit(self.imageCircled, (0,0))
 			self.image = self.imageRadar
 			#self.image = self.imageCircled
 		else:
