@@ -104,7 +104,7 @@ class Wall(pygame.sprite.Sprite):
 			self.set_angle(self.angle + 2*self.game.tick*self.game.speed*self.step/UNIT)
 		self.tiles.update()
 		
-		self.rect.y += self.game.tick * (5.0*UNIT) #
+		self.rect.y += self.game.tick * self.game.speed /2#(5.0*UNIT) #
 		
 		self.image.fill(0)
 		self.tiles.draw(self.image)
