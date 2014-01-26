@@ -158,6 +158,13 @@ class Game(pygame.sprite.Sprite):
 		else:
 			self.background.black = False
 		
+		if self.beat:
+			if self.lightTimer > 0:
+				self.lightTimer -= 1
+			if self.soundTimer > 0:  
+				self.soundTimer -= 1
+
+		
 		self.sounds.update()
 		self.background.update()
 		self.effects.update()
@@ -168,11 +175,7 @@ class Game(pygame.sprite.Sprite):
 		if self.beat:
 			self.lightAction = False
 			self.soundAction = False
-			if self.lightTimer > 0:
-				self.lightTimer -= 1
-			if self.soundTimer > 0:  
-				self.soundTimer -= 1
-
+			
 			# punteggio
 			if (self.frenzy <= F_CALM):
 				self.points += random.randint(10,20)
