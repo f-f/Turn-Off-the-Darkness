@@ -121,6 +121,7 @@ class Game(pygame.sprite.Sprite):
 				elif self.paused and self.slideCount == 2:
 					self.slideCount +=1
 					self.paused = False
+					self.player.image = self.player.images[0]
 
 				if event.key == K_ESCAPE:
 					self.quit = True
