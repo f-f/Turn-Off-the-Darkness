@@ -18,6 +18,8 @@ class Player(pygame.sprite.Sprite):
 			pygame.image.load('img/Walkcycle/walkcycleGABlevelsdef_09.png').convert_alpha(),
 			pygame.image.load('img/Walkcycle/walkcycleGABlevelsdef_10.png').convert_alpha()
 			]
+
+		self.deadIm = pygame.image.load('img/Personaggio_sangue.png').convert_alpha()
 		
 		self.image = self.images[0]
 		
@@ -39,7 +41,8 @@ class Player(pygame.sprite.Sprite):
 			
 			self.index = (self.index+1)%len(self.images)
 			
-			self.image = self.images[self.index]
+			if not self.game.paused:
+				self.image = self.images[self.index]
 		
 		for w in self.game.walls:
 			d = math.hypot(

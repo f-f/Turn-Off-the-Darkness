@@ -33,7 +33,7 @@ class Game(pygame.sprite.Sprite):
 		self.soundTimer = 0
 		self.levelCompletion = 0
 		self.points = 0
-		self.paused = False
+		self.paused = True
 		
 		# se usati insieme permettono di muovere il mouse infinitamente
 		# ma bloccano la tastiera "all'esterno"
@@ -198,6 +198,7 @@ class Game(pygame.sprite.Sprite):
 
 		if self.paused:
 			self.speed = 0
+			self.player.image = self.player.deadIm
 			
 			print self.lives
 			#if self.lives<1:
