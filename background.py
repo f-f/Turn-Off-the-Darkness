@@ -1,67 +1,90 @@
 from imports import *		
 
-class Background(pygame.sprite.Sprite):
-
-	def __init__(self, game):
+class Tile(pygame.sprite.Sprite):
+	def __init__(self, game, background, (x,y), w):
 		pygame.sprite.Sprite.__init__(self)
 		self.game = game
-
-		self.image = pygame.Surface(self.game.rect.size).convert_alpha()
-		self.side = UNIT * 2
-		self.offset = 0
-
-		self.tiles_fogna = self.create_tilelist("Fogna")
-		self.tiles_dungeon = self.create_tilelist("Dungeon")		
-		self.tiles_inferno = self.create_tilelist("Inferno")
+		self.background = background
 		
-		self.rows = list() # Lista di righe dello schermo
-		for i in xrange(0, self.game.rect.h/self.side + 1):
-			self.rows.append(self.new_row())
+		if w==1:
+			rand = random.randint(1,3)
+			self.images = [
+					pygame.image.load(tools.get_pathname("Fogna", "Pavimento", rand)).convert_alpha(),
+					pygame.image.load(tools.get_pathname("Dungeon", "Pavimento", rand)).convert_alpha(),
+					pygame.image.load(tools.get_pathname("Inferno", "Pavimento", rand)).convert_alpha()
+				]
+		elif w==2:
+			rand = random.randint(1,6)
+			self.images = [
+					pygame.image.load(tools.get_pathname("Fogna", "Pav", rand)).convert_alpha(),
+					pygame.image.load(tools.get_pathname("Dungeon", "Pav", rand)).convert_alpha(),
+					pygame.image.load(tools.get_pathname("Inferno", "Pav", rand)).convert_alpha()
+				]
+		else:
+			print "error"
+		
+		self.image = self.images[0]
+		self.rect = self.image.get_rect()
+		self.rect.topleft = (x,y)
+		
+		self.fixed = False
+	
+	def update(self):
+		change = False
+		
+		if not self.fixed:
+			self.rect.top += self.game.tick * self.game.speed
+			if self.rect.top >= self.background.tot_h:
+				self.rect.top -= self.background.tot_h
+				change = True
+		
+		if change or self.fixed:
+			if self.game.frenzy < F_CALM:
+				self.image = self.images[0]
+			#elif self.game.frenzy < F_TRANS2-1:
+			#	self.image = self.images[random.randint(0,1)]
+			elif self.game.frenzy < F_TRANS2:
+				self.image = self.images[1]
+			#elif self.game.frenzy < F_TRANS2+1:
+			#	self.image = self.images[random.randint(1,2)]
+			else:
+				self.image = self.images[2]
+
+class Background(pygame.sprite.OrderedUpdates):
+	def __init__(self, game):
+		pygame.sprite.OrderedUpdates.__init__(self)
+		self.game = game
+		
+		self.side = UNIT * 2
+		#self.tot_h = (self.game.rect.h/self.side) * self.side
+		self.tot_h = self.game.rect.h-(self.game.rect.h%self.side) + self.side
+		
+		# same old bug same horrible solution
+		pos_x = -self.side/2
+		for j in xrange(0, self.game.rect.w/self.side + 1):
+			w = random.randint(1,2)
+			tile = Tile(self.game, self, (pos_x,0), w)
+			tile.fixed = True
+			self.add(tile)
+			pos_x += w*self.side
+		#
+		
+		for i in xrange(0, self.game.rect.h/self.side+1):
+			pos_x = -self.side/2
+			for j in xrange(0, self.game.rect.w/self.side + 1):
+				w = random.randint(1,2)
+				tile = Tile(self.game, self, (pos_x,self.side*i), w)
+				self.add(tile)
+				pos_x += w*self.side
+		
 		
 		self.black = False
-
-	def create_tilelist(self, livello):
-	# Ritorna una lista di tiles (pygame.image) caricati
-		self.tiles = list()
-		for i in xrange(0, 2):
-			self.tiles.append(pygame.image.load(tools.get_pathname(livello, "Pavimento", i)).convert())
-			self.tiles.append(pygame.image.load(tools.get_pathname(livello, "Pav", i)).convert())			
-		self.tiles.append(pygame.image.load(tools.get_pathname(livello, "Pav", 3)).convert())
-		return self.tiles
-
-	def new_row(self):
-	# Definisce una riga dello schermo con tiles random in base al livello e la ritorna
-		self.row = pygame.Surface((self.game.rect.w, self.side)).convert_alpha()
-		self.position = -self.side/2 + random.randint(-self.side/2 + 10, self.side/2 - 10)
-		fr = self.game.frenzy
-		
-		for i in xrange(0, self.game.rect.w/self.side + 1):
-			
-			random_index = random.randint(0, 4);
-			if (fr <= F_CALM):
-				self.row.blit(self.tiles_fogna[random_index], (self.position, 0))
-				self.position += self.tiles_fogna[random_index].get_rect().w
-			elif (fr <= F_TRANS2):
-				self.row.blit(self.tiles_dungeon[random_index], (self.position, 0))
-				self.position += self.tiles_dungeon[random_index].get_rect().w
-			else:
-				self.row.blit(self.tiles_inferno[random_index], (self.position, 0))
-				self.position += self.tiles_inferno[random_index].get_rect().w			
-			
-		return self.row
-
+	
 	def update(self):
-		if self.black:
-			self.image.fill((0,0,0))
-		else:
-			self.image.fill(0)
-			self.offset += self.game.tick * self.game.speed
-			if (self.offset > self.side):
-				self.offset = 0
-				del self.rows[-1]
-				self.rows.insert(0, self.new_row())
-				
-			for i in xrange(len(self.rows)):
-				self.image.blit(self.rows[i], (0, i * self.side + self.offset))
-
-			self.image.blit(self.rows[-1], (0, -self.side + self.offset))
+		if not self.black:
+			pygame.sprite.OrderedUpdates.update(self)
+	
+	def draw(self, image):
+		if not self.black:
+			pygame.sprite.OrderedUpdates.draw(self, image)
+	

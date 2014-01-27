@@ -3,7 +3,7 @@ N_TILES = [1,1,5]
 
 def get_pathname(livello, tipo, sufx = 1):
 	if (tipo != "Muro"):
-		return "img/Tile/%s/%s_%s.png" % (livello, tipo, sufx + 1)
+		return "img/Tile/%s/%s_%s.png" % (livello, tipo, sufx)
 	else:
 		return "img/Tile/%s/%s_%s.png" % (livello, tipo, sufx)
 

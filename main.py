@@ -6,7 +6,6 @@ from sounds import *
 from effects import *
 from menus import *
 from slide import *
-
 from background import *
 
 class Game(pygame.sprite.Sprite):
@@ -227,12 +226,16 @@ class Game(pygame.sprite.Sprite):
 	def draw(self):
 		self.image.fill(0)
 		
-		self.image.blit( self.background.image, (0,0) )
+		self.background.draw(self.image)
 		self.walls.draw(self.image)
 		self.effects.draw(self.image)
 		self.foreground.draw(self.image)
 		self.menusGroup.draw(self.image)
-
+		
+		# raise backgrount to top for debug
+		#self.background.draw(self.image)
+		
+		
 		#slides
 		self.slideGroup.draw(self.image)
 		
