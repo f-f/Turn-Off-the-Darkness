@@ -14,3 +14,20 @@ def create_tilelist(livello):
 		tiles.append(pygame.image.load(tools.get_pathname(livello, "Pavimento", i)).convert())
 	tiles.append(pygame.image.load(tools.get_pathname(livello, "Pavimento", 4)).convert())
 	return tiles
+
+
+import os,sys, pygame
+
+def OS_PATH(path):
+	path = os.path.dirname(os.path.realpath(__file__)) + os.sep + path
+	return os.path.normpath(path)
+
+pygame_image_load = pygame.image.load
+def load_image(path):
+	return pygame_image_load(OS_PATH(path))
+pygame.image.load = load_image
+
+pygame_mixer_Sound = pygame.mixer.Sound
+def load_sound(path):
+	return pygame_mixer_Sound(OS_PATH(path))
+pygame.mixer.Sound = load_sound
