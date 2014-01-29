@@ -1,5 +1,4 @@
 cxfreeze*
-dist
 
 *.py[cod]
 
@@ -9,7 +8,7 @@ dist
 # Packages
 *.egg
 *.egg-info
-dist
+#dist
 build
 eggs
 parts
