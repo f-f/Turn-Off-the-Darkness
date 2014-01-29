@@ -25,9 +25,9 @@ def OS_PATH(path):
 pygame_image_load = pygame.image.load
 def load_image(path):
 	return pygame_image_load(OS_PATH(path))
-pygame.image.load = load_image
+#pygame.image.load = load_image
 
 pygame_mixer_Sound = pygame.mixer.Sound
 def load_sound(path):
 	return pygame_mixer_Sound(OS_PATH(path))
-pygame.mixer.Sound = load_sound
+#pygame.mixer.Sound = load_sound

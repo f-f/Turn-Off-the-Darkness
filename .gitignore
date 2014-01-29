@@ -1,3 +1,6 @@
+cxfreeze*
+dist
+
 *.py[cod]
 
 # C extensions

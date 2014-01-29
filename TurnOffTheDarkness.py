@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from imports import *
 
 from player import *
