@@ -13,40 +13,22 @@ class Walls(pygame.sprite.Group):
 		if self.game.beat:
 			self.beat_counter += 1
 		
-		if self.beat_counter > 3:
-			self.beat_counter = 0
-			#angle = random.uniform(-math.pi,+math.pi)  # migliore finora
-			
-			"""
-			angle = self.last_angle + random.uniform(-math.pi/4,+math.pi/4)
-			w = Wall(
-					self.game,
-					random.randint(30,50),
-					angle
-				)
-			self.last_angle += w.n*w.step
-			self.add(w)
-			
-			angle = self.last_angle + random.uniform(math.pi/4,+math.pi/2)
-			w = Wall(
-					self.game,
-					random.randint(30,50),
-					angle
-				)
-			self.last_angle += w.n*w.step
-			self.add(w)
-			#"""
-			
-			n_holes = 3
-			start_angle = random.uniform(-math.pi,+math.pi)
-			for i in xrange(n_holes):
-				angle = start_angle + i*math.pi*2/n_holes
-				w = Wall(
-					self.game,
-					random.randint(20,30),
-					angle
-				)
-				self.add(w)
+			if self.beat_counter > 2:
+				self.beat_counter = 0
+				
+				wall_len = random.randint(20,30)
+				
+				
+				n_holes = random.randint(1,4)
+				start_angle = random.uniform(-math.pi,+math.pi)
+				for i in xrange(n_holes):
+					angle = start_angle + i*math.pi*2/n_holes
+					w = Wall(
+						self.game,
+						wall_len,
+						angle
+					)
+					self.add(w)
 			
 		#for w in self:
 		#	w.rect.y += self.game.tick*self.game.speed
